@@ -209,12 +209,73 @@ nav a:focus-visible::after {
 .hero h1 span {
     display: block;
     color: var(--coral);
+    animation: name-glow 4.5s ease-in-out infinite alternate;
 }
 
 .hero h2 {
     margin-bottom: 20px;
     color: var(--arena);
     font-size: 20px;
+}
+
+.typewriter-text::after {
+    display: inline-block;
+    width: 2px;
+    height: .95em;
+    margin-left: 5px;
+    background: var(--coral);
+    content: "";
+    vertical-align: -.1em;
+    animation: caret-blink .8s steps(2, start) infinite;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+}
+
+.cursor-trail {
+    position: fixed;
+    z-index: 999;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.cursor-trail span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--coral);
+    box-shadow: 0 0 14px rgba(91, 192, 190, .55);
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale(.5);
+    transition: opacity .2s ease;
+}
+
+.cursor-trail.is-active span {
+    opacity: .8;
+    transform: translate3d(-50%, -50%, 0) scale(1);
+}
+
+.cursor-trail span:nth-child(2) { width: 7px; height: 7px; opacity: .65; }
+.cursor-trail span:nth-child(3) { width: 6px; height: 6px; opacity: .5; }
+.cursor-trail span:nth-child(4) { width: 5px; height: 5px; opacity: .38; }
+.cursor-trail span:nth-child(5) { width: 4px; height: 4px; opacity: .28; }
+.cursor-trail span:nth-child(6) { width: 3px; height: 3px; opacity: .2; }
+
+@media (hover: none), (pointer: coarse) {
+    .cursor-trail {
+        display: none;
+    }
 }
 
 .hero p {
@@ -786,6 +847,15 @@ html[data-theme="dark"] .timeline {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+@keyframes name-glow {
+    from { text-shadow: 0 0 0 rgba(91, 192, 190, 0); }
+    to { text-shadow: 0 0 24px rgba(91, 192, 190, .35); }
+}
+
+@keyframes caret-blink {
+    to { visibility: hidden; }
 }
 
 @media (max-width: 900px) {
